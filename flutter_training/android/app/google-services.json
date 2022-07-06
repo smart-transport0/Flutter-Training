@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "672312417966",
+    "project_id": "smart-transportation-667a8",
+    "storage_bucket": "smart-transportation-667a8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:672312417966:android:5255668d13e9cdabe3d73f",
+        "android_client_info": {
+          "package_name": "com.example.flutter_training"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "672312417966-ubjmr1mfqofdvvs6ld4o8p1qdc7p0102.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuOCPTGlXArLV8FSYhRVMlF7d5rvBnmRM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "672312417966-ubjmr1mfqofdvvs6ld4o8p1qdc7p0102.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
