@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_training/Data-Services/users.dart';
 import 'package:flutter_training/Resuable-Widget/inputfield.dart';
 import 'package:flutter_training/Screens/General/welcome.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../General/registerGeneral.dart';
 
@@ -11,6 +12,13 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  late SharedPreferences sharedPreferences;
+  @override
+  void initState() {
+    super.initState();
+    initial();
+  }
+
   Reusable reusable = Reusable();
   Users user = Users();
   TextEditingController mobileNumberController = TextEditingController();
@@ -65,8 +73,13 @@ class _LoginState extends State<Login> {
                       int decider = await user.signIn(
                           mobileNumberController.text, passwordController.text);
                       if (decider == 1) {
-                        Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) => Welcome()));
+                        sharedPreferences.setString('phoneNumber',
+                            mobileNumberController.text.toString());
+
+                        Navigator.pushReplacement(
+                            context,
+                            new MaterialPageRoute(
+                                builder: (context) => Welcome()));
                       } else if (decider == 2) {
                       } else if (decider == 3) {
                         Navigator.of(context).push(MaterialPageRoute(
@@ -90,5 +103,9 @@ class _LoginState extends State<Login> {
             ],
           )))
     ]);
+  }
+
+  void initial() async {
+    sharedPreferences = await SharedPreferences.getInstance();
   }
 }

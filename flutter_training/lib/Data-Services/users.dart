@@ -2,15 +2,23 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:encrypt/encrypt.dart';
 
 class Users {
-  Future<void> createUser(String mobileNumber, String password, String fullName,
-      String DateOfBirth, String emergencyContactNo) async {
+  Future<void> createUser(
+      String mobileNumber,
+      String password,
+      String firstName,
+      String middleName,
+      String lastName,
+      String DateOfBirth,
+      String emergencyContactNo) async {
     await FirebaseFirestore.instance
         .collection('UserInformation')
         .doc(mobileNumber)
         .set({
       'UserID': mobileNumber,
       'Password': encrypt(password),
-      'FullName': fullName,
+      'FirstName': firstName,
+      'MiddleName': middleName,
+      'LastName': lastName,
       'DateOfBirth': DateOfBirth,
       'EmergencyContactNo': emergencyContactNo
     });

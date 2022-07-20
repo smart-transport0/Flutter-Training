@@ -2,9 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_training/Resuable-Widget/inputfield.dart';
 import 'package:flutter_training/Screens/Common/Login.dart';
 import 'package:flutter_training/Screens/Common/Register.dart';
+import 'package:flutter_training/Screens/General/welcome.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  late SharedPreferences sharedPreferences;
+  @override
+  void initState() {
+    super.initState();
+    check_if_already_logged_in();
+  }
+
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
@@ -24,8 +37,8 @@ class Home extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) => Login()));
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => Login()));
                   },
                   child: Text(
                     'Login',
@@ -48,7 +61,7 @@ class Home extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context).push(
+                    Navigator.pushReplacement(context,
                         MaterialPageRoute(builder: (context) => Register()));
                   },
                   child: Text(
@@ -73,5 +86,14 @@ class Home extends StatelessWidget {
         ],
       )),
     );
+  }
+
+  void check_if_already_logged_in() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    String? newUser = sharedPreferences.getString('phoneNumber');
+    if (newUser != null) {
+      Navigator.pushReplacement(
+          context, new MaterialPageRoute(builder: (context) => Welcome()));
+    }
   }
 }
