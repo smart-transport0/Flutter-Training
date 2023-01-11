@@ -13,57 +13,38 @@ class NavBar extends StatefulWidget {
 
 class _NavBarState extends State<NavBar> {
   late SharedPreferences sharedPreferences;
-  String phoneNumber = "";
-  String fullName = "";
+  String fullName = '';
+  String phoneNumber = '';
   void initState() {
     super.initState();
     initial();
   }
 
-  Widget popup(BuildContext context) {
-    return AlertDialog(
-        title: Text('Logout'),
-        content: Text('Do you really want to logout?'),
-        actions: [
-          TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text('Cancel')),
-          TextButton(
-              onPressed: () {
-                sharedPreferences.remove('phoneNumber');
-                Navigator.pushReplacement(context,
-                    new MaterialPageRoute(builder: (context) => Home()));
-              },
-              child: Text('Confirm'))
-        ]);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Colors.amber,
+      backgroundColor: Colors.white70,
       child: ListView(
         children: [
           FutureBuilder(builder: (context, snapshot) {
-            return UserAccountsDrawerHeader(
-              accountName: Text(fullName),
-              accountEmail: Text(phoneNumber),
-              currentAccountPicture: CircleAvatar(
-                child: ClipOval(
-                  child: Image.network(
-                    'https://oflutter.com/wp-content/uploads/2021/02/girl-profile.png',
-                    fit: BoxFit.cover,
-                    width: 90,
-                    height: 90,
-                  ),
-                ),
-              ),
-              decoration: BoxDecoration(
-                color: Color.fromRGBO(66, 103, 178, 1.0),
-              ),
-            );
+            return FutureBuilder(
+                future: initial(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return UserAccountsDrawerHeader(
+                      accountName: Text(fullName),
+                      accountEmail: Text(phoneNumber),
+                      currentAccountPicture: CircleAvatar(
+                        child: ClipOval(child: FaIcon(FontAwesomeIcons.user)),
+                      ),
+                      decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 25, 125, 180),
+                      ),
+                    );
+                  } else {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                });
           }),
           ListTile(
             leading: FaIcon(FontAwesomeIcons.userLarge),
@@ -106,7 +87,7 @@ class _NavBarState extends State<NavBar> {
     );
   }
 
-  void initial() async {
+  Future<String> initial() async {
     sharedPreferences = await SharedPreferences.getInstance();
     phoneNumber = sharedPreferences.getString('phoneNumber').toString();
     var documentSnapshot = await FirebaseFirestore.instance
@@ -116,5 +97,26 @@ class _NavBarState extends State<NavBar> {
     var data = documentSnapshot.data();
     fullName =
         data!['FirstName'] + " " + data['MiddleName'] + " " + data['LastName'];
+    return fullName;
+  }
+
+  Widget popup(BuildContext context) {
+    return AlertDialog(
+        title: Text('Logout'),
+        content: Text('Do you really want to logout?'),
+        actions: [
+          TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('Cancel')),
+          TextButton(
+              onPressed: () {
+                sharedPreferences.remove('phoneNumber');
+                Navigator.pushReplacement(context,
+                    new MaterialPageRoute(builder: (context) => Home()));
+              },
+              child: Text('Confirm'))
+        ]);
   }
 }

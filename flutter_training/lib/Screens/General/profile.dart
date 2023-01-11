@@ -21,6 +21,7 @@ class _ProfileState extends State<Profile> {
       phoneNumber = "",
       dateOfBirth = "",
       emergencyContactNumber = "";
+  int totalJourneyListed = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -115,6 +116,26 @@ class _ProfileState extends State<Profile> {
                   ),
                 ],
               ),
+            ),
+            Container(
+              padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 30.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Total Active Journey Listed',
+                    style: TextStyle(color: Colors.white, letterSpacing: 2.0),
+                  ),
+                  Text(
+                    totalJourneyListed.toString(),
+                    style: TextStyle(
+                        color: Colors.white,
+                        letterSpacing: 2.0,
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
             )
           ])),
     ));
@@ -141,6 +162,7 @@ class _ProfileState extends State<Profile> {
           data['LastName'];
       dateOfBirth = data['DateOfBirth'];
       emergencyContactNumber = data['EmergencyContactNo'];
+      totalJourneyListed = data['TotalJourneyListed'];
     });
   }
 }

@@ -20,7 +20,8 @@ class Users {
       'MiddleName': middleName,
       'LastName': lastName,
       'DateOfBirth': DateOfBirth,
-      'EmergencyContactNo': emergencyContactNo
+      'EmergencyContactNo': emergencyContactNo,
+      'TotalJourneyListed': 0,
     });
     return;
   }

@@ -23,7 +23,7 @@ class _WelcomeState extends State<Welcome> {
             backgroundColor: Colors.transparent,
           ),
           drawer: NavBar(),
-          backgroundColor: Colors.transparent,
+          backgroundColor: Color.fromRGBO(51, 101, 200, 1),
           bottomNavigationBar: BottomNavBar(),
         ),
       )

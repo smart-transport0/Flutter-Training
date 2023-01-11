@@ -37,6 +37,15 @@ class AddJourney {
       'MobileNumber': userID,
       'Route': route
     });
+    var userData = await FirebaseFirestore.instance
+        .collection('UserInformation')
+        .doc(userID)
+        .get();
+    int totalJourneyListed = await userData['TotalJourneyListed'];
+    await FirebaseFirestore.instance
+        .collection('UserInformation')
+        .doc(userID)
+        .update({'TotalJourneyListed': totalJourneyListed + 1});
     var collectionRef =
         FirebaseFirestore.instance.collection('TransporterList');
 

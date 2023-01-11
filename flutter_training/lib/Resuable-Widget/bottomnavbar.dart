@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_training/Screens/General/listedJourney.dart';
 import 'package:flutter_training/Screens/General/startJourney.dart';
 import 'package:flutter_training/Screens/General/welcome.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -29,7 +30,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       unselectedItemColor: Color.fromRGBO(0, 56, 68, 1),
-      backgroundColor: Color.fromRGBO(255, 177, 0, 1.0),
+      backgroundColor: Colors.white,
       iconSize: 25.0,
       items: const [
         BottomNavigationBarItem(
@@ -45,7 +46,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             icon: FaIcon(FontAwesomeIcons.solidCommentDots), label: "Chat"),
       ],
       currentIndex: selectedIndex,
-      selectedItemColor: Colors.white,
+      selectedItemColor: Color.fromRGBO(246, 174, 45, 1.0),
       onTap: onItemTapped,
     );
   }
